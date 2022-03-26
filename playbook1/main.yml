@@ -1,0 +1,19 @@
+- hosts: webserver
+  become: true
+  become_user: root
+  #remote_user: root
+  vars:
+    users:
+    - name: user1
+      homedir: /home/user1
+    - name: user2
+      homedir: /home/user2
+  tasks:
+  - name: create user with random password
+    user:
+      name: "{{ item.name }}"
+      password: "{{ lookup('password', 'credentials/' +  item.name  + '/password.txt encrypt=md5_crypt') }}"
+      create_home: yes
+      home: "{{ item.homedir }}"
+      groups: wheel
+    loop: "{{ users }}"
