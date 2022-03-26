@@ -1,0 +1,12 @@
+- hosts: localhost
+  become: true
+  become_user: root
+  #remote_user: root
+  roles:
+    - tomcat
+  vars:
+    users:
+    - name: user1
+      homedir: /home/user1
+    - name: user2
+      homedir: /home/user2

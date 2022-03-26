@@ -1,0 +1,6 @@
+JAVA_HOME: /usr/lib/jvm/jre
+users:
+  - name: user1
+    homedir: /home/user1
+  - name: user2
+    homedir: /home/user2
