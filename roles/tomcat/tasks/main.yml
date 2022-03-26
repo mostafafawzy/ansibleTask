@@ -83,8 +83,22 @@
 
   - name: Open tomcat port on the firewall
     firewalld:
-      port: 9095/tcp
+      port: 8080/tcp
       permanent: true
       state: enabled
       immediate: yes
+      #when: ansible_service_mgr == "systemd"i
+
+  - name: Replace line in file examples
+    replace:
+      path: /usr/share/tomcat/conf/server.xml
+      regexp: 'Connector port="8080"'
+      replace: 'Connector port="9095"'
+      #backrefs: yes
+
+  - name: Restart  tomcat
+    service:
+      daemon_reload: yes
+      name: tomcat
+      state: restarted
     when: ansible_service_mgr == "systemd"
