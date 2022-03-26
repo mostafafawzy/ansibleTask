@@ -11,15 +11,6 @@
       regexp: '^%wheel'
       line: '%wheel ALL=(ALL) NOPASSWD: ALL'
 
-  - name: create user with random password
-    #register: result_cluster
-    user:
-      name: "{{ item.name }}"
-      password: "{{ lookup('password', 'credentials/' +  item.name  + '/password.txt encrypt=md5_crypt') }}"
-      create_home: yes
-      home: "{{ item.homedir }}"
-      groups: wheel
-    loop: "{{ users }}"
 
   - name: Install JAVA
     yum:
